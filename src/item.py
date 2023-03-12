@@ -25,11 +25,17 @@ class Item:
 
     @staticmethod
     def validate(value):
+        """
+        Проверка на длину имени
+        """
         if len(value) > 10:
             raise ValueError('Длинна имени не может превышать десяти символов')
 
     @staticmethod
     def string_to_number(value):
+        """
+        Возвращает целочисленное значение из строки
+        """
         res = int(float(value))
         return res
 
@@ -60,6 +66,9 @@ class Item:
 
     @classmethod
     def instantiate_from_csv(cls):
+        """
+        Читает данные из файла и создает объекты на основе этих данных
+        """
         with open(path) as file:
             res = csv.DictReader(file)
             for i in res:
