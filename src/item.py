@@ -1,5 +1,6 @@
 import csv
 import os
+
 path = os.path.dirname(__file__) + '/items.csv'
 
 
@@ -74,6 +75,14 @@ class Item:
             for i in res:
                 cls(i['name'], i['price'],i['quantity'])
 
+    def __str__(self):
+        res = f"{self.name}"
+        return res
+
+
+    def __repr__(self):
+        res = str(self.__class__).split('.')[-1][:-2]
+        return f"{res}('{self.name}', {self.price}, {self.quantity})"
 
 
 
