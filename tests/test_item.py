@@ -58,4 +58,10 @@ def test_instantiate_from_csv():
     assert Item.all[-1].price == '10000'
     assert Item.all[-1].quantity == '2'
 
+def test_str(item):
+    assert str(item) == 'phone'
+
+def test_repr(item):
+    assert repr(item) == "Item('phone', 10000, 4)"
+
 
