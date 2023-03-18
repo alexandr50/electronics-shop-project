@@ -22,14 +22,14 @@ class Phone(Item):
     def __add__(self, other):
         """Метод сложения по количеству товара"""
         if type(other) not in (Item, Phone):
-            raise ValueError('other must be class Item')
+            raise TypeError('arguments must be class Item or Phone')
         return self.quantity + other.quantity
 
 
     def __radd__(self, other):
         """Метод правостороннего сложения по количеству товара"""
         if type(other) not in (Item, Phone):
-            raise ValueError('other must be class Item')
+            raise TypeError('arguments must be class Item or Phone')
         return self.quantity + other.quantity
 
 

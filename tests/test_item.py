@@ -5,6 +5,7 @@ from pathlib import Path
 
 import pytest
 from src.item import Item
+from src.phone import Phone
 
 dir_path = pathlib.Path.cwd()
 path = Path(dir_path, 'test_file.csv')
@@ -12,6 +13,7 @@ path = Path(dir_path, 'test_file.csv')
 @pytest.fixture
 def item():
     return Item('phone', 10000, 4)
+
 
 
 def test_item_init(item):
@@ -64,6 +66,12 @@ def test_str(item):
 def test_repr(item):
     assert repr(item) == "Item('phone', 10000, 4)"
 
+def test_add(item):
+    phone = Phone('Honor', 1000, 5, 2)
+    assert item + phone == 9
+    assert phone + item == 9
+    with pytest.raises(TypeError):
+        item + 10
 
 
 
