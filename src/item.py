@@ -1,6 +1,7 @@
 import csv
 import os
 
+# from src.phone import Phone
 path = os.path.dirname(__file__) + '/items.csv'
 
 
@@ -40,7 +41,6 @@ class Item:
         res = int(float(value))
         return res
 
-
     @property
     def name(self):
         return self.__name
@@ -58,12 +58,11 @@ class Item:
         """
         return self.price * self.quantity
 
-    def apply_discount(self) -> float:
+    def apply_discount(self):
         """
         Применяет установленную скидку для конкретного товара.
         """
         self.price *= Item.pay_rate
-
 
     @classmethod
     def instantiate_from_csv(cls):
@@ -73,17 +72,12 @@ class Item:
         with open(path) as file:
             res = csv.DictReader(file)
             for i in res:
-                cls(i['name'], i['price'],i['quantity'])
+                cls(i['name'], i['price'], i['quantity'])
 
     def __str__(self):
         res = f"{self.name}"
         return res
 
-
     def __repr__(self):
-        res = str(self.__class__).split('.')[-1][:-2]
-        return f"{res}('{self.name}', {self.price}, {self.quantity})"
-
-
-
-
+        class_name = str(self.__class__).split('.')[-1][:-2]
+        return f"{class_name}('{self.name}', {self.price}, {self.quantity})"
