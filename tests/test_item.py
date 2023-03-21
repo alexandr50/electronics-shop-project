@@ -10,10 +10,10 @@ from src.phone import Phone
 dir_path = pathlib.Path.cwd()
 path = Path(dir_path, 'test_file.csv')
 
+
 @pytest.fixture
 def item():
     return Item('phone', 10000, 4)
-
 
 
 def test_item_init(item):
@@ -40,7 +40,6 @@ def test_set_name(item):
     assert item.name == 'monitor'
 
 
-
 def test_string_to_number(item):
     assert item.string_to_number('5') == 5
 
@@ -60,11 +59,14 @@ def test_instantiate_from_csv():
     assert Item.all[-1].price == '10000'
     assert Item.all[-1].quantity == '2'
 
+
 def test_str(item):
     assert str(item) == 'phone'
 
+
 def test_repr(item):
     assert repr(item) == "Item('phone', 10000, 4)"
+
 
 def test_add(item):
     phone = Phone('Honor', 1000, 5, 2)
@@ -72,6 +74,3 @@ def test_add(item):
     assert phone + item == 9
     with pytest.raises(TypeError):
         item + 10
-
-
-

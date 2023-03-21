@@ -4,10 +4,10 @@ from src.item import Item
 from src.phone import Phone
 
 
-
 @pytest.fixture
 def phone():
     return Phone('honor', 10000, 4, 2)
+
 
 def test_repr(phone):
     assert repr(phone) == "Phone('honor', 10000, 4, 2)"

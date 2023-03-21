@@ -1,5 +1,6 @@
 import csv
 import os
+
 # from src.phone import Phone
 path = os.path.dirname(__file__) + '/items.csv'
 
@@ -80,5 +81,3 @@ class Item:
     def __repr__(self):
         class_name = str(self.__class__).split('.')[-1][:-2]
         return f"{class_name}('{self.name}', {self.price}, {self.quantity})"
-
-
