@@ -20,3 +20,11 @@ def test_add(phone):
         1 + phone
         item + 1
         1 + item
+
+
+def test_sim(phone):
+    phone.number_of_sim = 1
+    assert phone.number_of_sim == 1
+
+    with pytest.raises(ValueError):
+        phone.number_of_sim = 0
