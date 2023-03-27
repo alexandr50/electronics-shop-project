@@ -1,6 +1,8 @@
 import csv
 import os
 
+from errors.errors import InstantiateCSVError
+
 # from src.phone import Phone
 path = os.path.dirname(__file__) + '/items.csv'
 
@@ -25,7 +27,6 @@ class Item:
         self.price = price
         self.quantity = quantity
         Item.all.append(self)
-
 
     @staticmethod
     def validate(value):
@@ -67,19 +68,26 @@ class Item:
         self.price *= Item.pay_rate
 
     @classmethod
-    def instantiate_from_csv(cls):
+    def instantiate_from_csv(cls, filename):
         """
         Читает данные из файла и создает объекты на основе этих данных
         """
-        with open(path) as file:
-            res = csv.DictReader(file)
-            for i in res:
-                cls(i['name'], i['price'], i['quantity'])
+        try:
+            with open(filename) as file:
+                res = csv.DictReader(file)
+                for i in res:
+                    if list(i.keys()) == ['name', 'price', 'quantity']:
+                        cls(i['name'], i['price'], i['quantity'])
+                    else:
+                        raise InstantiateCSVError
+        except FileNotFoundError:
+            raise FileNotFoundError('Отсутствует файл item.csv')
+        # except InstantiateCSVError:
+        #     raise InstantiateCSVError('Файл item.csv поврежден')
 
     def __str__(self):
         res = f"{self.name}"
         return res
 
     def __repr__(self):
-        class_name = str(self.__class__).split('.')[-1][:-2]
-        return f"{class_name}('{self.name}', {self.price}, {self.quantity})"
+        return f"{self.__class__.__name__}('{self.name}', {self.price}, {self.quantity})"

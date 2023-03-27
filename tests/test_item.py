@@ -1,9 +1,9 @@
-import csv
-import os
 import pathlib
 from pathlib import Path
 
 import pytest
+
+from errors.errors import InstantiateCSVError
 from src.item import Item
 from src.phone import Phone
 
@@ -50,10 +50,7 @@ def test_validate(item):
 
 
 def test_instantiate_from_csv():
-    with open(path) as file:
-        res = csv.DictReader(file)
-        for i in res:
-            Item(i['name'], i['price'], i['quantity'])
+    Item.instantiate_from_csv(path)
     assert len(Item.all) == 9
     assert Item.all[-1].name == 'console'
     assert Item.all[-1].price == '10000'
@@ -74,3 +71,15 @@ def test_add(item):
     assert phone + item == 9
     with pytest.raises(TypeError):
         item + 10
+
+
+def test_FileNotFoundError_errors():
+    file = ''
+    with pytest.raises(FileNotFoundError):
+        Item.instantiate_from_csv(file)
+
+
+def test_InstantiateCSVError_errors():
+    path_uncorrect_file = Path(dir_path, 'uncorrect_items.csv')
+    with pytest.raises(InstantiateCSVError):
+        Item.instantiate_from_csv(path_uncorrect_file)
