@@ -50,7 +50,7 @@ class Item:
 
     @name.setter
     def name(self, value):
-        """Добавил коментарии"""
+        """Добавил коментарии и еще что нибудь"""
         self.validate(value)
         self.__name = value
 
